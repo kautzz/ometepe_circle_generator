@@ -127,13 +127,51 @@ public class ControlFrame extends PApplet
   }
   
   //Button Events
-  /*
-  public void generate(int theValue) 
+  
+  void controlEvent(ControlEvent theEvent) 
   {
-    println("a button event from generate: "+theValue);
-    //render();
+  
+    if(theEvent.isController()) 
+    { 
+    
+      print("control event from : "+theEvent.controller().name());
+      println(", value : "+theEvent.controller().value());
+    
+      if(theEvent.controller().name()=="generate") 
+      {
+        println("visualizing...");
+        visualize();
+      }
+      
+      if(theEvent.controller().name()=="re-generate") 
+      {
+        println("visualizing... again...");
+        visualize();
+      }
+
+      if(theEvent.controller().name()=="export vector graphic") 
+      {
+        println("exporting pdf...");
+        //exPdf();
+      }
+      
+      if(theEvent.controller().name()=="export pixel graphic") 
+      {
+        println("exporting jpg...");
+        exJpg();
+      }
+      
+      if(theEvent.controller().name()=="batch export") 
+      {
+        println("starting batch export...");
+        //exBatch();
+      }
+      
+    }  
   }
-  */
+  
+  //Settings Window Setup
+  
   private ControlFrame() {}
 
   public ControlFrame(Object theParent, int theWidth, int theHeight) 

@@ -14,6 +14,7 @@ void setup()
   background(255);  
   stroke(0);     
   frameRate(30);
+  smooth();
   
   gui = new ControlP5(this);
   guiWindow = addControlFrame("engine", 180,275);
@@ -21,13 +22,8 @@ void setup()
 
 void draw()
 {
-  //background(255);   // Set the background to black
+  //background(255);  
 }
 
-public void render()
-{
-    background(0);
-    fill(204, 102, 0);
-    rect(10, 10, 55, 55);
-}  
+
 
