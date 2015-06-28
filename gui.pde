@@ -16,6 +16,7 @@ public class ControlFrame extends PApplet
 {
 
   int w, h;
+  boolean debug = false;
   
   public void setup() 
   {
@@ -74,6 +75,15 @@ public class ControlFrame extends PApplet
       .setPosition(10, 195)
       .setValue(90);    
   
+    gui.addCheckBox("view")
+      .setPosition(10, 225)
+      .setSize(10, 10)
+      .setItemsPerRow(1)
+      .setSpacingColumn(75)
+      .setSpacingRow(5)
+      .addItem("debug", 0)
+      .moveTo("global");
+  
     //Export  
       
     gui.addButton("re-generate")
@@ -98,7 +108,7 @@ public class ControlFrame extends PApplet
       .setSize(w-30,20)
       .moveTo("autopilot");
    
-   gui.addSlider("iterations")
+    gui.addSlider("iterations")
       .setSliderMode(Slider.FLEXIBLE)
       .setDecimalPrecision(0)
       .setRange(0, 100)
@@ -106,7 +116,7 @@ public class ControlFrame extends PApplet
       .setValue(3)
       .moveTo("autopilot");
       
-    gui.addCheckBox("checkBox")
+    gui.addCheckBox("randomize")
       .setPosition(10, 90)
       .setSize(10, 10)
       .setItemsPerRow(2)
@@ -118,7 +128,7 @@ public class ControlFrame extends PApplet
       .addItem("rnd alpha", 0)
       .addItem("rnd start col", 0)
       .addItem("rnd end col", 0)
-      .moveTo("autopilot");     
+      .moveTo("autopilot");    
   }
 
   public void draw() 
@@ -126,48 +136,81 @@ public class ControlFrame extends PApplet
     background(100);
   }
   
-  //Button Events
+
   
   void controlEvent(ControlEvent theEvent) 
   {
-  
+    //Checkbox Events
+    if(theEvent.isFrom("view")) 
+    {
+      println("switching debug mode");
+      if(int(theEvent.getGroup().getArrayValue()[0])==0)      
+      {
+        debug = false;
+        origin.show();
+      }
+      else 
+      {
+        debug = true;
+        origin.debug();
+      }    
+    }  
+    
+    //Button and Slider Events
     if(theEvent.isController()) 
-    { 
-    
-      print("control event from : "+theEvent.controller().name());
-      println(", value : "+theEvent.controller().value());
-    
+    {     
       if(theEvent.controller().name()=="generate") 
       {
-        println("visualizing...");
-        visualize();
+        println("visualizing");
+        origin.create();
+        if(debug == false)
+        {
+          origin.show();
+        }
+        else
+        {
+          origin.debug();
+        }
       }
       
       if(theEvent.controller().name()=="re-generate") 
       {
-        println("visualizing... again...");
-        visualize();
+        println("visualizing... again");
+        origin.create();
+        if(debug == false)
+        {
+          origin.show();
+        }
+        else
+        {
+          origin.debug();
+        }
       }
+
 
       if(theEvent.controller().name()=="export vector graphic") 
       {
+        println("---");
         println("exporting pdf...");
-        //exPdf();
+        exPdf();
       }
       
       if(theEvent.controller().name()=="export pixel graphic") 
       {
+        println("---");
         println("exporting jpg...");
-        exJpg();
+        exPng();
       }
       
       if(theEvent.controller().name()=="batch export") 
       {
+        println("---");
         println("starting batch export...");
         //exBatch();
       }
       
-    }  
+    }
+ 
   }
   
   //Settings Window Setup
