@@ -39,7 +39,6 @@ public class Origin
     void show()
     {
       //render the final image
-      beginRecord(pdf);
       background(255);
       strokeWeight(0);
 
@@ -55,7 +54,6 @@ public class Origin
       } 
       endShape();
       redraw();
-      endRecord(); 
 
     }
     

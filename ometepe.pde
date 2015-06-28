@@ -23,8 +23,6 @@ void setup()
   gui = new ControlP5(this);
   guiWindow = addControlFrame("engine", 180,275);
   
-  pdf = (PGraphicsPDF) createGraphics(width, height, PDF, "images/temp.pdf");
-
   noLoop();
 }
 
