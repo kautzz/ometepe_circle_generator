@@ -64,7 +64,7 @@ public class ControlFrame extends PApplet
       .setAngleRange(2*PI)
       .setRange(0, 1)
       .setPosition(62, 105)
-      .setValue(0.9);
+      .setValue(1.0);
      
     gui.addSlider("start color")
       .setRange(0, 100)

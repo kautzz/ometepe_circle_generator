@@ -57,7 +57,7 @@ public class Origin
       //noStroke();
       beginShape(TRIANGLE_STRIP);
     
-      for(float step=0; step<=TWO_PI; step+=TWO_PI/720)
+      for(float step=0; step<=TWO_PI; step+=TWO_PI/7)
       { 
         stroke(lerpColor(sColor, eColor, step/TWO_PI),alpha);
         fill(lerpColor(sColor, eColor, step/TWO_PI),alpha);
