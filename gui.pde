@@ -143,14 +143,15 @@ public class ControlFrame extends PApplet
     //Checkbox Events
     if(theEvent.isFrom("view")) 
     {
-      println("switching debug mode");
       if(int(theEvent.getGroup().getArrayValue()[0])==0)      
       {
+        println("debug mode OFF");
         debug = false;
         origin.show();
       }
       else 
       {
+        println("debug mode ON");
         debug = true;
         origin.debug();
       }    

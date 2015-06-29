@@ -2,7 +2,8 @@ public class Origin
 {
     float originX, originY;
     float ax, ay, bx, by, cx, cy, dx, dy;
-    float dist, angle;
+    float dist, angle, alpha;
+    int sColor, eColor;
     
     void create()
     {
@@ -26,7 +27,18 @@ public class Origin
          
       dx = originX + cos(angle+PI+PI/2)*dist;
       dy = originY + sin(angle+PI+PI/2)*dist;
-          
+      
+      Controller sc = guiWindow.gui.getController("start color");
+      sColor = int(map(sc.getValue(), 0, 100, 0, 255));
+      
+      Controller ec = guiWindow.gui.getController("end color");
+      eColor = int(map(ec.getValue(), 0, 100, 0, 255));
+      
+      Controller al = guiWindow.gui.getController("alpha");
+      alpha = int(map(al.getValue(), 0, 1, 0, 255));
+
+      
+      
     }
     
     void getPos()
@@ -41,13 +53,14 @@ public class Origin
       //render the final image
       background(255);
       strokeWeight(0);
-
+      strokeCap(SQUARE);
+      //noStroke();
       beginShape(TRIANGLE_STRIP);
     
-      for(float step=0; step<TWO_PI; step+=TWO_PI/720)
+      for(float step=0; step<=TWO_PI; step+=TWO_PI/720)
       { 
-        stroke(lerpColor(0, 255, step/TWO_PI));
-        fill(lerpColor(0, 255, step/TWO_PI));
+        stroke(lerpColor(sColor, eColor, step/TWO_PI),alpha);
+        fill(lerpColor(sColor, eColor, step/TWO_PI),alpha);
 
         vertex(originX,originY);
         vertex(originX+cos(step+angle)*dist,originY+sin(step+angle)*dist);
@@ -60,16 +73,17 @@ public class Origin
     void debug()
     {
       //show how the image is constructed
+      strokeCap(ROUND);
       background(255);
       
-      stroke(50, 50, 50);
-      strokeWeight(0);
-      fill(230,100); 
+      stroke(190, 190, 190, alpha);
+      strokeWeight(1);
+      fill(230, alpha); 
 
       ellipseMode(RADIUS);  
       ellipse(originX, originY, dist, dist);  
 
-      stroke(150, 150, 150);
+      stroke(150, 150, 150, alpha);
       strokeWeight(1);
       line(originX,originY,ax,ay);
       
