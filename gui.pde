@@ -207,7 +207,7 @@ public class ControlFrame extends PApplet
       {
         println("---");
         println("starting batch export...");
-        //exBatch();
+        exBatch();
       }
       
     }
