@@ -39,14 +39,14 @@ public class ControlFrame extends PApplet
       .setSliderMode(Slider.FLEXIBLE)
       .setRange(0, 100)
       .setPosition(10,60)
-      .setValue(5);    
+      .setValue(30);    
     
     gui.addSlider("number")
       .setSliderMode(Slider.FLEXIBLE)
       .setDecimalPrecision(0)
-      .setRange(0, 100)
+      .setRange(0, 25)
       .setPosition(10,80)
-      .setValue(10);    
+      .setValue(2);    
      
     gui.addKnob("angle")
       .setViewStyle(Knob.ELLIPSE)
@@ -64,7 +64,7 @@ public class ControlFrame extends PApplet
       .setAngleRange(2*PI)
       .setRange(0, 1)
       .setPosition(62, 105)
-      .setValue(1.0);
+      .setValue(0.8);
      
     gui.addSlider("start color")
       .setRange(0, 100)
@@ -162,7 +162,7 @@ public class ControlFrame extends PApplet
     {     
       if(theEvent.controller().name()=="generate") 
       {
-        println("visualizing");
+        println("generating");
         origin.create();
         if(debug == false)
         {
@@ -176,7 +176,7 @@ public class ControlFrame extends PApplet
       
       if(theEvent.controller().name()=="re-generate") 
       {
-        println("visualizing... again");
+        println("generating... again");
         origin.create();
         if(debug == false)
         {
