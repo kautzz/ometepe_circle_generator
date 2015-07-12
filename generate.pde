@@ -6,7 +6,7 @@ public class Origin
     float[] dist;
     float[] angle;
     
-    int[] fib = {2, 3, 6};
+    int[] fib = {8, 13, 21, 34, 55, 89};
     float[] offset = {PI/2, PI, PI+PI/2, 2*PI};
     
     float alpha;
@@ -116,6 +116,8 @@ public class Origin
     
     void populate()
     {
+      ControllerGroup grav = guiWindow.gui.getGroup("force");
+      
       center = new PVector[number];
       center[0] = new PVector(random(width),random(height));
       
@@ -128,10 +130,35 @@ public class Origin
       
       for(int i = 1; i<number;i++)
       {
-        int rnd = (int)random(0,node.size());
+        int rnd = 0;        
+        if(grav.getArrayValue()[0] == 1)
+        {
+          if(i==1){println("applying gravitational forces");}
+        
+          float runDist[] = new float[node.size()+2];
+
+          for( int j = 0; j != node.size(); ++j ) 
+          {
+            runDist[j+1] = dist( node.get(j).x, node.get(j).y, center[i-1].x, center[i-1].y) * dist( node.get(j).x, node.get(j).y, center[0].x, center[0].y) ;
+            if(runDist[j+1]>runDist[0])
+            {
+              runDist[0] = runDist[j+1];
+              runDist[1] = j;
+            }
+          }
+          rnd = (int)random(runDist[1]-4,runDist[1]);
+          if(rnd<0){rnd=(int)runDist[1];}          
+        }
+        
+        else
+        {
+          if(i==1){println("applying random chaos");}
+          rnd = (int)random(0,node.size());
+        }
+        
         center[i] = new PVector(node.get(rnd).x , node.get(rnd).y);
                 
-        dist[i]=dist[0]/fib[(int)random(0,fib.length)];
+        dist[i]=dist[0]*fib[(int)random(0,fib.length)]/100;
         angle[i]=angle[0]+offset[(int)random(0,3)];
         
         node.add(new PVector(center[i].x + cos(angle[i])*dist[i] , center[i].y + sin(angle[i])*dist[i]));

@@ -79,9 +79,18 @@ public class ControlFrame extends PApplet
       .setPosition(10, 225)
       .setSize(10, 10)
       .setItemsPerRow(1)
-      .setSpacingColumn(75)
+      .setSpacingColumn(5)
       .setSpacingRow(5)
       .addItem("debug", 0)
+      .moveTo("global");
+  
+      gui.addCheckBox("force")
+      .setPosition(55, 225)
+      .setSize(10, 10)
+      .setItemsPerRow(1)
+      .setSpacingColumn(5)
+      .setSpacingRow(5)
+      .addItem("gravitation", 0)
       .moveTo("global");
   
     //Export  
@@ -149,7 +158,7 @@ public class ControlFrame extends PApplet
         debug = false;
         origin.show();
       }
-      else 
+      else if(int(theEvent.getGroup().getArrayValue()[0])==1)
       {
         println("debug mode ON");
         debug = true;
